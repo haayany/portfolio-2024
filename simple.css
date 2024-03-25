@@ -1,22 +1,49 @@
+/* Fonts */
+/* anybody font https://fonts.google.com/specimen/Anybody?stylecount=5*/
+
+.anybody-900 {
+  font-family: "Anybody", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 900;
+  font-style: normal;
+  font-variation-settings:
+    "wdth" 112.5;
+}
+/* barlow font https://fonts.google.com/specimen/Barlow?stylecount=5*/
+
+.barlow-regular {
+    font-family: "Barlow", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+  }
+  
+  .barlow-bold {
+    font-family: "Barlow", sans-serif;
+    font-weight: 700;
+    font-style: normal;
+  }  
+  
+
 /* Global variables. */
 :root,
 ::backdrop {
   /* Set sans-serif & mono fonts */
-  --sans-font: -apple-system, BlinkMacSystemFont, "Avenir Next", Avenir,
-    "Nimbus Sans L", Roboto, "Noto Sans", "Segoe UI", Arial, Helvetica,
-    "Helvetica Neue", sans-serif;
+  --title-font: 'Anybody';
+  --body-font: 'barlow-regular', Roboto, "Noto Sans", sans-serif;
+  --sans-font: 'barlow-regular', Roboto, "Noto Sans", sans-serif;
   --mono-font: Consolas, Menlo, Monaco, "Andale Mono", "Ubuntu Mono", monospace;
   --standard-border-radius: 5px;
 
   /* Default (light) theme */
-  --bg: #fff;
+  --bg: #FFF8EF;
   --accent-bg: #f5f7ff;
-  --text: #212121;
-  --text-light: #585858;
+  --text: #2D2D2D;
+  --text-light: #846D6D;
   --border: #898EA4;
-  --accent: #0d47a1;
-  --accent-hover: #1266e2;
+  --accent: #F95C3A;
+  --accent-hover: #D13E1E;
   --accent-text: var(--bg);
+
   --code: #d81b60;
   --preformatted: #444;
   --marked: #ffdd33;
@@ -28,13 +55,14 @@
   :root,
   ::backdrop {
     color-scheme: dark;
-    --bg: #212121;
+    --bg: #000000;
     --accent-bg: #2b2b2b;
-    --text: #dcdcdc;
-    --text-light: #ababab;
-    --accent: #ffb300;
-    --accent-hover: #ffe099;
+    --text: #FFF8EF;
+    --text-light: #837070;
+    --accent: #F08080;
+    --accent-hover: #F95C3A;
     --accent-text: var(--bg);
+
     --code: #f06292;
     --preformatted: #ccc;
     --disabled: #111;
@@ -63,7 +91,7 @@ progress {
 
 html {
   /* Set the font globally */
-  font-family: var(--sans-font);
+  font-family: var(--body-font);
   scroll-behavior: smooth;
 }
 
@@ -120,32 +148,40 @@ body > footer {
 
 /* Format headers */
 h1 {
+  font-family: var(--title-font);
   font-size: 3rem;
+  font-family: ;
 }
 
 h2 {
+  font-family: var(--title-font);
   font-size: 2.6rem;
   margin-top: 3rem;
 }
 
 h3 {
+    font-family: var(--title-font);  
   font-size: 2rem;
   margin-top: 3rem;
 }
 
 h4 {
+    font-family: var(--title-font);
   font-size: 1.44rem;
 }
 
 h5 {
+    font-family: var(--title-font);
   font-size: 1.15rem;
 }
 
 h6 {
+    font-family: var(--title-font);
   font-size: 0.96rem;
 }
 
 p {
+    font-family: var(--body-font);
   margin: 1.5rem 0;
 }
 
