@@ -1,0 +1,76 @@
+<style>
+    .scrollable{
+    width: 300px;
+  height: 200px;
+  overflow-y: auto; /* Enable vertical scrolling */
+  border: 1px solid #ccc;
+  margin-bottom: 20px;
+  padding: 10px;
+}
+
+/* Styling for the scrollable div content */
+.scrollable h2 {
+  margin-top: 0;
+}
+
+.scrollable p {
+  margin-bottom: 0;
+}
+</style>
+
+<div id="scrollable1" class="scrollable">
+    <h2>Scrollable Div 1</h2>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis vestibulum, justo at euismod mollis, tortor metus suscipit felis, ut volutpat ipsum velit ac orci.</p>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis vestibulum, justo at euismod mollis, tortor metus suscipit felis, ut volutpat ipsum velit ac orci.</p>
+    <p style="color:red;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis vestibulum, justo at euismod mollis, tortor metus suscipit felis, ut volutpat ipsum velit ac orci.</p>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis vestibulum, justo at euismod mollis, tortor metus suscipit felis, ut volutpat ipsum velit ac orci.</p>
+    <!-- Add more content as needed -->
+  </div>
+  
+  <div id="scrollable2" class="scrollable">
+    <h2>Scrollable Div 2</h2>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis vestibulum, justo at euismod mollis, tortor metus suscipit felis, ut volutpat ipsum velit ac orci.</p>
+    <p style="color:red;" id="current">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis vestibulum, justo at euismod mollis, tortor metus suscipit felis, ut volutpat ipsum velit ac orci.</p>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis vestibulum, justo at euismod mollis, tortor metus suscipit felis, ut volutpat ipsum velit ac orci.</p>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis vestibulum, justo at euismod mollis, tortor metus suscipit felis, ut volutpat ipsum velit ac orci.</p>
+    <!-- Add more content as needed -->
+  </div>
+
+  <script>
+    // Function to reset scroll position for a specific scrollable element
+function resetScrollPosition(scrollable) {
+  // Replace 'targetItemId' with the ID of the item you want to scroll to
+  const targetItemId = 'current'; 
+  
+  // Scroll to the target item within the scrollable element
+  const targetItem = scrollable.querySelector(`#${targetItemId}`);
+  if (targetItem) {
+    // Scroll to the calculated position within the scrollable element
+    targetItem.scrollIntoView({ behavior: "smooth", block: "center", inline: "nearest" });
+  }
+}
+
+// Add scroll event listener to each scrollable element
+document.addEventListener("DOMContentLoaded", () => {
+  const scrollables = document.querySelectorAll('.scrollable');
+  const timeouts = {}; // Object to store the timeout for each scrollable element
+  
+  scrollables.forEach(scrollable => {
+    // Add scroll event listener to each scrollable element
+    scrollable.addEventListener('scroll', () => {
+      // Clear the previous timeout for this scrollable element
+      clearTimeout(timeouts[scrollable.id]);
+      
+      // Set a new timeout to reset scroll position after 5 seconds of inactivity
+      timeouts[scrollable.id] = setTimeout(() => {
+        resetScrollPosition(scrollable);
+      }, 5000); // Adjust the timeout duration as needed
+    });
+  });
+  
+  // Reset scroll position for each scrollable element when the page is fully loaded
+  scrollables.forEach(scrollable => {
+    resetScrollPosition(scrollable);
+  });
+});
+  </script>

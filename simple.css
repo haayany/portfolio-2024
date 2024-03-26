@@ -117,7 +117,6 @@ body>* {
 
 /* Make the header bg full width, but the content inline with body */
 body>header {
-    background-color: var(--accent-bg);
     border-bottom: 1px solid var(--border);
     text-align: center;
     padding: 0 0.5rem 2rem 0.5rem;
@@ -183,6 +182,7 @@ h5 {
 h6 {
     font-family: var(--title-font);
     font-size: 0.96rem;
+    margin: 0;
 }
 
 p {
@@ -250,13 +250,13 @@ h6.accent:hover {
 }
 
 /* Reduce header size on mobile */
-@media only screen and (max-width: 720px) {
+@media only screen and (max-width: 768px) {
     h1 {
-        font-size: 2.3rem;
+        font-size: 2rem;
     }
 
     h2 {
-        font-size: 2rem;
+        font-size: 1.75rem;
     }
 
     h3 {
@@ -265,6 +265,10 @@ h6.accent:hover {
 
     h4 {
         font-size: 1.25rem;
+    }
+    div.accent{
+        width:100%;
+        text-align: left;;
     }
 }
 
@@ -358,12 +362,9 @@ header>nav {
 /* Use flexbox to allow items to wrap, as needed */
 header>nav ul,
 header>nav ol {
-    align-content: space-around;
-    align-items: center;
+    align-items: flex-start;
     display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
+    flex-direction: column;
     list-style-type: none;
     margin: 0;
     padding: 0;
@@ -377,12 +378,8 @@ header>nav ol li {
 
 header>nav a,
 header>nav a:visited {
-    margin: 0 0.5rem 1rem 0.5rem;
-    border: 1px solid var(--border);
-    border-radius: var(--standard-border-radius);
     color: var(--text);
     display: inline-block;
-    padding: 0.1rem 1rem;
     text-decoration: none;
 }
 
@@ -395,7 +392,7 @@ header>nav a[aria-current="page"] {
 }
 
 /* Reduce nav side on mobile */
-@media only screen and (max-width: 720px) {
+@media only screen and (max-width: 768px) {
     header>nav a {
         border: none;
         padding: 0;
@@ -428,7 +425,7 @@ aside {
 }
 
 /* Make aside full-width on mobile */
-@media only screen and (max-width: 720px) {
+@media only screen and (max-width: 768px) {
     aside {
         width: 100%;
         float: none;
@@ -623,7 +620,7 @@ input[type="radio"]:checked::after {
 }
 
 /* Makes input fields wider on smaller screens */
-@media only screen and (max-width: 720px) {
+@media only screen and (max-width: 768px) {
 
     textarea,
     select,
@@ -783,7 +780,7 @@ dialog::backdrop {
     opacity: 0.8;
 }
 
-@media only screen and (max-width: 720px) {
+@media only screen and (max-width: 768px) {
     dialog {
         max-width: 100%;
         margin: auto 1em;
