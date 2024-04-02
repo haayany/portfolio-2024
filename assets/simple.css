@@ -776,7 +776,7 @@
   .nav-right .outline:after */
   .outline.small:after
   { 
-      -webkit-text-stroke: 1px var(--text);
+      -webkit-text-stroke: 1.5px var(--text);
   }
   
   .nav-right {

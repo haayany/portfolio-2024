@@ -1,3 +1,30 @@
+const themeToggle = document.getElementById('themeToggle');
+
+    const toggleTheme = () => {
+        // Toggle the data-theme attribute on the <html> element
+        if (document.documentElement.getAttribute('data-theme') === 'dark') {
+            document.documentElement.removeAttribute('data-theme');
+            themeToggle.textContent = 'Enjoying Dark Mode';
+            themeToggle.title="Enjoying Dark Mode";
+        } else {
+            document.documentElement.setAttribute('data-theme', 'dark');
+            themeToggle.textContent = 'Enjoying Light Mode';
+          themeToggle.title="Enjoying Light Mode";
+        }
+    };
+
+    // Set button text based on initial theme
+    const setInitialButtonText = () => {
+        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            document.documentElement.setAttribute('data-theme', 'dark');
+            themeToggle.textContent = 'Enjoying Light Mode';
+        }
+    };
+
+    setInitialButtonText();
+
+    themeToggle.addEventListener('click', toggleTheme);
+
 // Wait for the DOM content to be fully loaded before executing the code.
 document.addEventListener("DOMContentLoaded", async () => {
     // Initialize handling for scrollable elements and table of contents (TOC).
@@ -24,7 +51,7 @@ function initScrollableElements() {
 function setupScrollEvent(scrollable) {
     scrollable.addEventListener("scroll", () => {
         clearTimeout(scrollable.timeout);
-        scrollable.timeout = setTimeout(handleScrollPositionReset, 420); // Delay to prevent excessive function calls.
+        scrollable.timeout = setTimeout(handleScrollPositionReset, 666); // Delay to prevent excessive function calls.
     });
 }
 
@@ -152,29 +179,3 @@ function handleTocMouseLeave(event) {
         child.style.opacity = '50%';
     });
 }
-
-
-const themeToggle = document.getElementById('themeToggle');
-
-    const toggleTheme = () => {
-        // Toggle the data-theme attribute on the <html> element
-        if (document.documentElement.getAttribute('data-theme') === 'dark') {
-            document.documentElement.removeAttribute('data-theme');
-            themeToggle.textContent = 'Toggle Dark Mode';
-        } else {
-            document.documentElement.setAttribute('data-theme', 'dark');
-            themeToggle.textContent = 'Toggle Light Mode';
-        }
-    };
-
-    // Set button text based on initial theme
-    const setInitialButtonText = () => {
-        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-            document.documentElement.setAttribute('data-theme', 'dark');
-            themeToggle.textContent = 'Toggle Light Mode';
-        }
-    };
-
-    setInitialButtonText();
-
-    themeToggle.addEventListener('click', toggleTheme);
