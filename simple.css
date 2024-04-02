@@ -918,7 +918,9 @@
   
   .slide-wrap{
     padding: 0 24px;
-  }
+    display: flex;
+  
+}
   
   @media only screen and (max-width: 768px) {
     .slide-wrap{
