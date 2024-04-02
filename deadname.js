@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     initScrollableElements();
     await handleScrollPositionReset();
     generateTOCHTML('toc');
-    
+
 
     // Setup click event handlers for anchor links.
     setupAnchorClickHandlers();
@@ -49,19 +49,30 @@ async function handleScrollPositionReset() {
     });
 }
 
-// Function to adjust the class of the header based on the scroll position of the window.
+function throttle(func, limit) {
+    let inThrottle;
+    return function () {
+        const args = arguments;
+        const context = this;
+        if (!inThrottle) {
+            func.apply(context, args);
+            inThrottle = true;
+            setTimeout(() => inThrottle = false, limit);
+        }
+    };
+}
+
 function adjustHeaderOnScroll() {
-    window.addEventListener('scroll', async () => {
+    window.addEventListener('scroll', throttle(async () => {
         const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
         const header = document.querySelector('header');
         const tocListWrappers = document.querySelectorAll(".toc-list-wrapper");
-        
-        // Toggle the 'header-fixed' class based on scroll position.
+
         if (scrollTop > 69) {
             header.classList.add('header-fixed');
             tocListWrappers.forEach(wrapper => {
                 wrapper.style.visibility = 'visible';
-              wrapper.style.opacity = '100%';
+                wrapper.style.opacity = '100%';
             });
         } else {
             header.classList.remove('header-fixed');
@@ -70,14 +81,9 @@ function adjustHeaderOnScroll() {
                 wrapper.style.opacity = '0';
             });
         }
-      
-        handleScrollPositionReset();
-      console.log(" handleScrollPositionReset();");
-        await handleScrollPositionReset(); // Reset scroll position for consistency.
-      console.log(" await handleScrollPositionReset()");
-      await initScrollableElements();
-      console.log(" await initScrollableElements()");
-    });
+
+        await handleScrollPositionReset();
+    }, 1));
 }
 
 // Function to get the position and ID of elements with a specified class name.
@@ -109,7 +115,7 @@ function generateTOCHTML(elementId) {
         tocLink.className = 'toc-item-wrapper';
         tocLink.href = `#${info.id}`;
         tocLink.style.top = `${info.percentage}%`; // Position based on document height percentage.
-        tocLink.innerHTML = `<div class='toc-item'>#${info.id}</div><div class='toc-item-marker'></div>`;
+        tocLink.innerHTML = `<div class='toc-item outline small' title='${info.id}'>${info.id}</div><div class='toc-item-marker'></div>`;
         tocContainer.appendChild(tocLink);
     });
 }
@@ -123,7 +129,7 @@ function setupAnchorClickHandlers() {
             const targetElement = document.getElementById(targetId); // Find target element.
             if (targetElement) {
                 // Smooth scroll to the target element.
-                targetElement.scrollIntoView({behavior: "smooth", block: "center", inline: "nearest" });
+                targetElement.scrollIntoView({ behavior: "smooth", block: "center", inline: "nearest" });
             }
         });
     });
@@ -146,3 +152,29 @@ function handleTocMouseLeave(event) {
         child.style.opacity = '50%';
     });
 }
+
+
+const themeToggle = document.getElementById('themeToggle');
+
+    const toggleTheme = () => {
+        // Toggle the data-theme attribute on the <html> element
+        if (document.documentElement.getAttribute('data-theme') === 'dark') {
+            document.documentElement.removeAttribute('data-theme');
+            themeToggle.textContent = 'Toggle Dark Mode';
+        } else {
+            document.documentElement.setAttribute('data-theme', 'dark');
+            themeToggle.textContent = 'Toggle Light Mode';
+        }
+    };
+
+    // Set button text based on initial theme
+    const setInitialButtonText = () => {
+        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            document.documentElement.setAttribute('data-theme', 'dark');
+            themeToggle.textContent = 'Toggle Light Mode';
+        }
+    };
+
+    setInitialButtonText();
+
+    themeToggle.addEventListener('click', toggleTheme);
