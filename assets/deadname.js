@@ -1,29 +1,23 @@
 const themeToggle = document.getElementById('themeToggle');
 
+    // Function to toggle theme and update button text
     const toggleTheme = () => {
-        // Toggle the data-theme attribute on the <html> element
-        if (document.documentElement.getAttribute('data-theme') === 'dark') {
-            document.documentElement.removeAttribute('data-theme');
-            themeToggle.textContent = 'Enjoying Dark Mode';
-            themeToggle.title="Enjoying Dark Mode";
-        } else {
-            document.documentElement.setAttribute('data-theme', 'dark');
-            themeToggle.textContent = 'Enjoying Light Mode';
-          themeToggle.title="Enjoying Light Mode";
-        }
+        const currentTheme = document.documentElement.getAttribute('data-theme');
+        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+        document.documentElement.setAttribute('data-theme', newTheme);
+        themeToggle.textContent = newTheme === 'dark' ? 'Toggle Light Mode' : 'Toggle Dark Mode';
     };
 
-    // Set button text based on initial theme
-    const setInitialButtonText = () => {
-        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-            document.documentElement.setAttribute('data-theme', 'dark');
-            themeToggle.textContent = 'Enjoying Light Mode';
-        }
+    // Determine and set the initial theme based on the user's preference or default to light
+    const setInitialTheme = () => {
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const initialTheme = prefersDark ? 'dark' : 'light';
+        document.documentElement.setAttribute('data-theme', initialTheme);
+        themeToggle.textContent = initialTheme === 'dark' ? 'Toggle Light Mode' : 'Toggle Dark Mode';
     };
 
-    setInitialButtonText();
-
-    themeToggle.addEventListener('click', toggleTheme);
+    setInitialTheme(); // Set the initial theme
+    themeToggle.addEventListener('click', toggleTheme); // Add toggle functionality to the button
 
 // Wait for the DOM content to be fully loaded before executing the code.
 document.addEventListener("DOMContentLoaded", async () => {
