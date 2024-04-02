@@ -49,9 +49,33 @@ function initScrollableElements() {
 
 // Add a scroll event listener to a scrollable element to reset its scroll position after scrolling stops.
 function setupScrollEvent(scrollable) {
+  let isHovering = false; // Flag to track hover state
+
+    // Add mouseover listener to set isHovering to true
+    scrollable.addEventListener("mouseover", () => {
+        isHovering = true;
+      clearTimeout(scrollable.timeout);
+    });
+
+    // Add mouseout listener to set isHovering to false
+    scrollable.addEventListener("mouseout", () => {
+        isHovering = false;
+    });
+
+    // Add mouseout listener to delay scroll reset by 2 seconds after mouse leaves
+    scrollable.addEventListener("mouseout", () => {
+        scrollable.timeout = setTimeout(() => {
+            handleScrollPositionReset().catch(console.error);
+        }, 1420); // Delay reset by 2 seconds
+    });
+
+    // Regular scroll event to reset scroll position, will be preempted if mouse is over
+    // Modify the scroll event listener to check isHovering flag before resetting scroll position
     scrollable.addEventListener("scroll", () => {
-        clearTimeout(scrollable.timeout);
-        scrollable.timeout = setTimeout(handleScrollPositionReset, 666); // Delay to prevent excessive function calls.
+        if (!isHovering) { // Only reset scroll position if not hovering
+            clearTimeout(scrollable.timeout);
+            scrollable.timeout = setTimeout(handleScrollPositionReset, 50);
+        }
     });
 }
 
