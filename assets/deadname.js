@@ -1,24 +1,3 @@
-const themeToggle = document.getElementById('themeToggle');
-
-    // Function to toggle theme and update button text
-    const toggleTheme = () => {
-        const currentTheme = document.documentElement.getAttribute('data-theme');
-        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-        document.documentElement.setAttribute('data-theme', newTheme);
-        themeToggle.textContent = newTheme === 'dark' ? 'Toggle Light Mode' : 'Toggle Dark Mode';
-    };
-
-    // Determine and set the initial theme based on the user's preference or default to light
-    const setInitialTheme = () => {
-        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-        const initialTheme = prefersDark ? 'dark' : 'light';
-        document.documentElement.setAttribute('data-theme', initialTheme);
-        themeToggle.textContent = initialTheme === 'dark' ? 'Toggle Light Mode' : 'Toggle Dark Mode';
-    };
-
-    setInitialTheme(); // Set the initial theme
-    themeToggle.addEventListener('click', toggleTheme); // Add toggle functionality to the button
-
 // Wait for the DOM content to be fully loaded before executing the code.
 document.addEventListener("DOMContentLoaded", async () => {
     // Initialize handling for scrollable elements and table of contents (TOC).
