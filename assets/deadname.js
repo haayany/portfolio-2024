@@ -42,37 +42,86 @@ function initScrollableElements() {
     });
 }
 
-// Add a scroll event listener to a scrollable element to reset its scroll position after scrolling stops.
+
+
+
 function setupScrollEvent(scrollable) {
-  let isHovering = false; // Flag to track hover state
+    let isInteracting = false; // Flag to track both hover and touch interaction states
 
-    // Add mouseover listener to set isHovering to true
-    scrollable.addEventListener("mouseover", () => {
-        isHovering = true;
-      clearTimeout(scrollable.timeout);
-    });
-
-    // Add mouseout listener to set isHovering to false
-    scrollable.addEventListener("mouseout", () => {
-        isHovering = false;
-    });
-
-    // Add mouseout listener to delay scroll reset by 2 seconds after mouse leaves
-    scrollable.addEventListener("mouseout", () => {
-        scrollable.timeout = setTimeout(() => {
-            handleScrollPositionReset().catch(console.error);
-        }, 1420); // Delay reset by 2 seconds
-    });
-
-    // Regular scroll event to reset scroll position, will be preempted if mouse is over
-    // Modify the scroll event listener to check isHovering flag before resetting scroll position
-    scrollable.addEventListener("scroll", () => {
-        if (!isHovering) { // Only reset scroll position if not hovering
+    // Function to initiate scroll position reset with a delay
+    const initiateScrollReset = () => {
+        if (!isInteracting) {
             clearTimeout(scrollable.timeout);
-            scrollable.timeout = setTimeout(handleScrollPositionReset, 50);
+            scrollable.timeout = setTimeout(() => {
+                handleScrollPositionReset().catch(console.error);
+            }, 2000); // Using 2000 ms (2 seconds) as a delay after interaction ends
+        }
+    };
+
+    // Mouse events
+    scrollable.addEventListener("mouseover", () => {
+        isInteracting = true;
+    });
+    scrollable.addEventListener("mouseout", () => {
+        isInteracting = false;
+        initiateScrollReset();
+    });
+
+    // Touch events
+    scrollable.addEventListener("touchstart", () => {
+        isInteracting = true;
+    });
+    scrollable.addEventListener("touchend", () => {
+        isInteracting = false;
+        initiateScrollReset();
+    });
+
+    // Scroll event for resetting scroll position, considering the interaction state
+    scrollable.addEventListener("scroll", () => {
+        if (!isInteracting) {
+            clearTimeout(scrollable.timeout);
+            scrollable.timeout = setTimeout(() => {
+                handleScrollPositionReset().catch(console.error);
+            }, 50); // Immediate scroll position reset if not currently interacting
         }
     });
 }
+
+
+
+
+
+// Add a scroll event listener to a scrollable element to reset its scroll position after scrolling stops.
+// function setupScrollEvent(scrollable) {
+//   let isHovering = false; // Flag to track hover state
+
+//     // Add mouseover listener to set isHovering to true
+//     scrollable.addEventListener("mouseover", () => {
+//         isHovering = true;
+//       clearTimeout(scrollable.timeout);
+//     });
+
+//     // Add mouseout listener to set isHovering to false
+//     scrollable.addEventListener("mouseout", () => {
+//         isHovering = false;
+//     });
+
+//     // Add mouseout listener to delay scroll reset by 2 seconds after mouse leaves
+//     scrollable.addEventListener("mouseout", () => {
+//         scrollable.timeout = setTimeout(() => {
+//             handleScrollPositionReset().catch(console.error);
+//         }, 1420); // Delay reset by 2 seconds
+//     });
+
+//     // Regular scroll event to reset scroll position, will be preempted if mouse is over
+//     // Modify the scroll event listener to check isHovering flag before resetting scroll position
+//     scrollable.addEventListener("scroll", () => {
+//         if (!isHovering) { // Only reset scroll position if not hovering
+//             clearTimeout(scrollable.timeout);
+//             scrollable.timeout = setTimeout(handleScrollPositionReset, 50);
+//         }
+//     });
+// }
 
 // Add a wheel event listener to prevent default scrolling behavior and apply custom scrolling speed.
 function setupWheelEvent(scrollable) {
