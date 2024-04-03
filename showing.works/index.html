@@ -1,23 +1,7 @@
 <!doctype html>
 <html lang="en">
 
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dani is...</title>
-
-    <!-- Google fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Anybody:wdth,wght@100,900&family=Barlow:wght@400;700&display=swap" rel="stylesheet">
-
-    <!-- Purecss for layout-->
-    <link rel="stylesheet" href="/assets/purecss.css">
-
-    <!-- Simplecss for a reason I forgot -->
-    <link rel="stylesheet" href="/assets/simple.css">
-
-        <!-- Faster theme change -->
-        <script src="/assets/themeChange.js"></script>
-</head>
+{% include head.html %}
 <body>
     <header class="header">
         <div style="display:flex; gap: 8px; align-items:center; ">
@@ -93,7 +77,5 @@
         </div>
     </section>
     </main>
-</body>
-<!-- Fancy JS-->
-<script src="/assets/deadname.js"></script>
+    {% include endBody.html %}
 </html>
