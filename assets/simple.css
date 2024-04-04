@@ -787,9 +787,6 @@ a.outline:visited {
     top: 0;
 }
 
-/* h6 .outline:after,
-  li .outline:after,
-  .nav-right .outline:after */
 .outline.small:after {
     -webkit-text-stroke: 1.5px var(--text);
 }
@@ -941,6 +938,10 @@ h5 {
 @media only screen and (max-width: 768px) {
     .slide-wrap {
         padding: 0 24px;
+    }
+
+    .nav-right{
+        visibility: hidden;;
     }
 }
 
