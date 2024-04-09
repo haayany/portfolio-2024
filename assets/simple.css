@@ -5,11 +5,22 @@
     --body-font: 'Barlow', sans-serif;
     --sans-font: 'Barlow', sans-serif;
     --mono-font: Consolas, Menlo, Monaco, "Andale Mono", "Ubuntu Mono", monospace;
-    --bg: #e0e0e0;
-    /* Neutral background */
-    --text: #333;
+    --bg: #FFF8EF;
+    --accent-bg: #f5f7ff;
+    --text: #2D2D2D;
+    --text-light: #846D6D;
+    --border: #898EA4;
+    --accent: #F95C3A;
+    --accent-hover: #D13E1E;
+    --accent-text: var(--bg);
+    --code: #d81b60;
+    --preformatted: #444;
+    --marked: #ffdd33;
+    --disabled: #efefef;
     /* Neutral text color */
-    --accent-bg: #d0d0d0;
+    /* --accent-bg: #d0d0d0;
+        --bg: #e0e0e0;
+    --text: #333;
     --text-light: #666;
     --border: #aaa;
     --accent: #888;
@@ -18,7 +29,7 @@
     --code: #555;
     --preformatted: #444;
     --marked: #ccc;
-    --disabled: #f0f0f0;
+    --disabled: #f0f0f0; */
 }
 
 /* Light mode variables */
@@ -38,7 +49,7 @@
 }
 
 /* Dark mode variables */
-[data-theme="dark"] {
+/* [data-theme="dark"] {
     --bg: #000000;
     --accent-bg: #2b2b2b;
     --text: #ecedee;
@@ -49,7 +60,7 @@
     --code: #f06292;
     --preformatted: #ccc;
     --disabled: #111;
-}
+} */
 
 /* Reset box-sizing */
 *,
@@ -788,7 +799,7 @@ a.outline:visited {
 }
 
 .outline.small:after {
-    -webkit-text-stroke: 1.5px var(--text);
+    -webkit-text-stroke: 2px var(--text);
 }
 
 .nav-right {
@@ -810,12 +821,12 @@ li[id="current"] .outline:after {
 }
 
 div.divider {
-    border: 1px solid var(--text-light);
+    border: 1px solid var(--accent);
     height: calc(100%/4);
 }
 
 header div.divider {
-    border: 1px solid var(--text-light);
+    border: 1px solid var(--accent);
     height: 24px;
     ;
 }
@@ -856,9 +867,12 @@ h5 {
 }
 
 .card:hover {
-    color: var(--accent-bg);
+    color: var(--accent-text);
+    background-color: var(--accent);
+}
 
-    background-color: var(--text);
+.card:hover hr{
+    background: var(--accent-text);
 }
 
 .card .content {
@@ -940,9 +954,10 @@ h5 {
         padding: 0 24px;
     }
 
-    .nav-right{
-        visibility: hidden;;
+    .nav-right, .toc-list-wrapper{
+        visibility: hidden !important;
     }
+
 }
 
 .slide {
@@ -1017,14 +1032,24 @@ h5 {
 
 .toc-item {
     /*   visibility: hidden; */
-    opacity: 50%;
+    opacity: 0%;
     transition: opacity 0.5s ease;
-    font-family: var(--title-font);
+    color: var(--text-light);
+/* 
+    border: 1px solid var(--text-light);
+    border-radius: 8px;
+    padding: 0 8px; */
+}
+
+.toc-item:hover{
+    transition: all 0.3s ease;
+    color: var(--accent);
+    /*background-color: var(--accent); */
 }
 
 .toc-item-marker {
     height: 16px;
-    outline: 1px solid var(--text);
+    outline: 2px solid var(--accent);
 }
 
 .text-light {

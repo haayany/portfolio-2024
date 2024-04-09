@@ -1,24 +1,24 @@
-const themeToggle = document.getElementById('themeToggle');
+// const themeToggle = document.getElementById('themeToggle');
 
-    // Function to update the theme and button text/title accordingly
-    const toggleTheme = () => {
-        const isDarkMode = document.documentElement.getAttribute('data-theme') === 'dark';
-        document.documentElement.setAttribute('data-theme', isDarkMode ? 'light' : 'dark');
-        themeToggle.textContent = isDarkMode ? 'Enjoying Dark Mode' : 'Enjoying Light Mode';
-        themeToggle.title = themeToggle.textContent; // Update title to match the text
-    };
+//     // Function to update the theme and button text/title accordingly
+//     const toggleTheme = () => {
+//         const isDarkMode = document.documentElement.getAttribute('data-theme') === 'dark';
+//         document.documentElement.setAttribute('data-theme', isDarkMode ? 'light' : 'dark');
+//         themeToggle.textContent = isDarkMode ? 'Enjoying Dark Mode' : 'Enjoying Light Mode';
+//         themeToggle.title = themeToggle.textContent; // Update title to match the text
+//     };
 
-    // Set initial theme and button text/title based on user preference or system setting
-    const setInitialTheme = () => {
-        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-        const initialTheme = prefersDark ? 'dark' : 'light';
-        document.documentElement.setAttribute('data-theme', initialTheme);
-        themeToggle.textContent = initialTheme === 'dark' ? 'Enjoying Dark Mode' : 'Enjoying Light Mode';
-        themeToggle.title = themeToggle.textContent; // Ensure title is correctly set on initial load
-    };
+//     // Set initial theme and button text/title based on user preference or system setting
+//     const setInitialTheme = () => {
+//         const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+//         const initialTheme = prefersDark ? 'dark' : 'light';
+//         document.documentElement.setAttribute('data-theme', initialTheme);
+//         themeToggle.textContent = initialTheme === 'dark' ? 'Enjoying Dark Mode' : 'Enjoying Light Mode';
+//         themeToggle.title = themeToggle.textContent; // Ensure title is correctly set on initial load
+//     };
 
-    setInitialTheme();
-    themeToggle.addEventListener('click', toggleTheme);
+//     setInitialTheme();
+//     themeToggle.addEventListener('click', toggleTheme);
 
 // Wait for the DOM content to be fully loaded before executing the code.
 document.addEventListener("DOMContentLoaded", async () => {
@@ -210,7 +210,7 @@ function generateTOCHTML(elementId) {
         tocLink.className = 'toc-item-wrapper';
         tocLink.href = `#${info.id}`;
         tocLink.style.top = `${info.percentage}%`; // Position based on document height percentage.
-        tocLink.innerHTML = `<div class='toc-item outline small' title='${info.id}'>${info.id}</div><div class='toc-item-marker'></div>`;
+        tocLink.innerHTML = `<div class='toc-item' title='${info.id}'>${info.id}</div><div class='toc-item-marker'></div>`;
         tocContainer.appendChild(tocLink);
     });
 }
@@ -244,6 +244,6 @@ function handleTocHover(event) {
 // Handle mouse leaving TOC element by reducing the opacity of all child TOC items.
 function handleTocMouseLeave(event) {
     event.currentTarget.querySelectorAll('.toc-item').forEach(child => {
-        child.style.opacity = '50%';
+        child.style.opacity = '0%';
     });
 }
