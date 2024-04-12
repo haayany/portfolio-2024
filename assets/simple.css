@@ -390,10 +390,11 @@ aside {
 article,
 fieldset,
 dialog {
-    border: 1px solid var(--border);
+    border: 1px solid var(--accent);
     padding: 1rem;
     border-radius: var(--standard-border-radius);
     margin-bottom: 1rem;
+    background-color: var(--bg);
 }
 
 article h2:first-child,

@@ -247,3 +247,17 @@ function handleTocMouseLeave(event) {
         child.style.opacity = '0%';
     });
 }
+
+
+//Closing dialog
+document.addEventListener('DOMContentLoaded', function() {
+    var dialogs = document.querySelectorAll('dialog');
+
+    dialogs.forEach(function(dialog) {
+        dialog.addEventListener('click', function(event) {
+            if (event.target === dialog) { // Checks if the click was on the dialog element itself
+                dialog.close(); // Closes the dialog
+            }
+        });
+    });
+});
