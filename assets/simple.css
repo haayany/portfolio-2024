@@ -954,7 +954,7 @@ h5 {
     }
 
     100% {
-        transform: translateX(-8064.65px);
+        transform: translateX(-4445px);
     }
 }
 
@@ -1002,7 +1002,7 @@ h5 {
 }
 
 .track-3 {
-    animation: scroll-3 50s linear infinite;
+    animation: scroll-3 30s linear infinite;
     width: max-content;
 }
 
@@ -1039,13 +1039,14 @@ h5 {
     height: 100%;
     display: flex;
     flex-direction: row-reverse;
-    width: calc(440px);
+    width: 20%;
+    min-width: 240px;
     bottom: 0;
     padding: 0 0 0 1px;
     position: fixed;
     right: 0;
     top: 0;
-    z-index: 1;
+    z-index: 90;
     transition: all 1s ease;
     visibility: hidden;
     opacity: 0;
