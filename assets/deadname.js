@@ -1,184 +1,178 @@
-// const themeToggle = document.getElementById('themeToggle');
+document.addEventListener('DOMContentLoaded', function() {
+    const canvases = document.querySelectorAll('.dot-canvas');
 
-//     // Function to update the theme and button text/title accordingly
-//     const toggleTheme = () => {
-//         const isDarkMode = document.documentElement.getAttribute('data-theme') === 'dark';
-//         document.documentElement.setAttribute('data-theme', isDarkMode ? 'light' : 'dark');
-//         themeToggle.textContent = isDarkMode ? 'Enjoying Dark Mode' : 'Enjoying Light Mode';
-//         themeToggle.title = themeToggle.textContent; // Update title to match the text
-//     };
+    canvases.forEach(canvas => {
+        const ctx = canvas.getContext('2d');
+        let width = canvas.offsetWidth;
+        let height = canvas.offsetHeight;
 
-//     // Set initial theme and button text/title based on user preference or system setting
-//     const setInitialTheme = () => {
-//         const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-//         const initialTheme = prefersDark ? 'dark' : 'light';
-//         document.documentElement.setAttribute('data-theme', initialTheme);
-//         themeToggle.textContent = initialTheme === 'dark' ? 'Enjoying Dark Mode' : 'Enjoying Light Mode';
-//         themeToggle.title = themeToggle.textContent; // Ensure title is correctly set on initial load
-//     };
+        // Set canvas to full available size
+        canvas.width = width;
+        canvas.height = height;
 
-//     setInitialTheme();
-//     themeToggle.addEventListener('click', toggleTheme);
+        // Constants for dots
+        const spacing = 40;
+        const baseSize = 2;
+        const colorThreshold = 200;
+        const baseColor = { r: 196, g: 187, b: 165 };
+        const hoverColor = { r: 249, g: 92, b: 58 };
+
+        function drawDot(x, y, size, color) {
+            ctx.beginPath();
+            ctx.arc(x, y, size, 0, Math.PI * 2);
+            ctx.fillStyle = color;
+            ctx.fill();
+        }
+
+        function populateDots() {
+    ctx.clearRect(0, 0, width, height);
+    // Start from 10 pixels down from the top and stop before 10 pixels from the bottom
+    for (let y = 20; y < height; y += spacing) {
+        for (let x = 0; x < width; x += spacing) {
+            drawDot(x, y, baseSize, 'rgb(196, 187, 165)');
+        }
+    }
+}
+
+        function interpolateColor(color1, color2, ratio) {
+            const r = Math.round(color1.r + (color2.r - color1.r) * ratio);
+            const g = Math.round(color1.g + (color2.g - color1.g) * ratio);
+            const b = Math.round(color1.b + (color2.b - color1.b) * ratio);
+            return `rgb(${r}, ${g}, ${b})`;
+        }
+
+        function adjustDotSizes(x, y) {
+    ctx.clearRect(0, 0, width, height);
+    // Adjust loop for padding as well
+    for (let py = 20; py < height; py += spacing) {
+        for (let px = 0; px < width; px += spacing) {
+            const dx = x - px;
+            const dy = y - py;
+            const distance = Math.sqrt(dx * dx + dy * dy);
+            const size = baseSize * Math.max(1, 3 - distance / 100);
+            let ratio = Math.min(distance / colorThreshold, 1);
+            const color = interpolateColor(baseColor, hoverColor, 1 - ratio);
+
+            drawDot(px, py, size, color);
+        }
+    }
+}
+
+        populateDots();
+
+        let throttled = false;
+        canvas.addEventListener('mousemove', function(e) {
+    const rect = canvas.getBoundingClientRect(); // Gets the bounds of the canvas
+    const scaleX = canvas.width / rect.width;    // Scale factor between actual canvas size and displayed size
+    const scaleY = canvas.height / rect.height;  // Same for height
+
+    // Adjusting the mouse position to be relative to the canvas
+    const canvasX = (e.clientX - rect.left) * scaleX;
+    const canvasY = (e.clientY - rect.top) * scaleY;
+
+    if (!throttled) {
+        adjustDotSizes(canvasX, canvasY);
+        throttled = true;
+        setTimeout(() => { throttled = false; }, 10);
+    }
+});
+
+        window.addEventListener('resize', function() {
+            width = canvas.offsetWidth;
+            height = canvas.offsetHeight;
+            canvas.width = width;
+            canvas.height = height;
+            populateDots();
+        });
+    });
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+    const urlbutton = document.querySelector('.url');
+    const display = document.querySelector('.display');
+    const list = document.querySelector('.dropdown-list');
+    let typingInterval;
+    const cursor = document.createElement('span');
+    cursor.className = 'cursor';
+    cursor.textContent = '';  // This will be the blinking cursor
+  let originalText = display.textContent;  // Store the initial text
+
+    // Toggle list display on click
+    urlbutton.addEventListener('click', function() {
+        list.hidden = !list.hidden;
+    });
+
+    // Hide list when clicking outside
+    document.addEventListener('click', function(event) {
+        if (!urlbutton.contains(event.target) && !list.contains(event.target)) {
+            list.hidden = true;
+            display.textContent = originalText;  // Reset to original text
+            display.appendChild(cursor);  // Ensure cursor is visible
+        }
+    }); 
+
+    // Hover effect and temporary text display
+    const listItems = document.querySelectorAll('.dropdown-list li');
+    listItems.forEach(item => {
+        item.addEventListener('mouseenter', function() {
+            if (typingInterval) clearInterval(typingInterval);
+            startTypingEffect(display, item.textContent);
+        });
+      item.addEventListener('mouseleave', function() {
+
+            display.textContent = originalText;  // Reset to original text when mouse leaves
+
+            display.appendChild(cursor);
+
+        });
+        item.addEventListener('click', function() {
+            originalText = item.textContent;  // Update original text upon selection
+            display.textContent = item.textContent;
+            display.appendChild(cursor);  // Ensure cursor is visible after selection
+            list.hidden = true;
+            listItems.forEach(li => li.classList.remove('selected'));
+            item.classList.add('selected');
+        });
+    });
+
+    function startTypingEffect(element, text) {
+        let i = 0;
+        element.textContent = ''; // Clear text first
+        element.appendChild(cursor);  // Append cursor to the display
+        typingInterval = setInterval(() => {
+            if (i < text.length) {
+                cursor.before(text[i]);  // Insert text before the cursor
+                i++;
+            } else {
+                clearInterval(typingInterval);
+                cursor.style.animation = 'none';  // Stop the cursor from blinking once typing is complete
+                setTimeout(() => { cursor.style.animation = ''; }, 51); // Restart blinking after some time
+            }
+        }, 50); // Typing speed
+    }
+});
 
 // Wait for the DOM content to be fully loaded before executing the code.
 document.addEventListener("DOMContentLoaded", async () => {
     // Initialize handling for scrollable elements and table of contents (TOC).
-    adjustHeaderOnScroll();
-    initScrollableElements();
-    await handleScrollPositionReset();
     generateTOCHTML('toc');
-
-
-    // Setup click event handlers for anchor links.
-    setupAnchorClickHandlers();
 });
 
-// Initialize scrollable elements by adding event listeners for scroll and wheel events.
-function initScrollableElements() {
-    const scrollables = document.querySelectorAll(".scrollable");
-    scrollables.forEach(scrollable => {
-        setupScrollEvent(scrollable);
-        setupWheelEvent(scrollable);
+// Generate HTML content for the TOC based on elements with a specific class name.
+function generateTOCHTML(elementId) {
+    const elementsInfo = getPositionAndId(elementId);
+    const tocContainer = document.getElementById('toc');
+    if (!elementsInfo || !tocContainer) return;
+
+    // Create and append link elements for each TOC item.
+    elementsInfo.forEach(info => {
+        const tocLink = document.createElement('a');
+        tocLink.className = 'toc-item-wrapper';
+        tocLink.href = `#${info.id}`;
+        tocLink.style.top = `${info.percentage}%`; // Position based on document height percentage.
+        tocLink.innerHTML = `<div class='button toc-item' title='${info.id}'>${info.id}</div>`;
+        tocContainer.appendChild(tocLink);
     });
-}
-
-
-
-
-function setupScrollEvent(scrollable) {
-    let isInteracting = false; // Flag to track both hover and touch interaction states
-
-    // Function to initiate scroll position reset with a delay
-    const initiateScrollReset = () => {
-        if (!isInteracting) {
-            clearTimeout(scrollable.timeout);
-            scrollable.timeout = setTimeout(() => {
-                handleScrollPositionReset().catch(console.error);
-            }, 2000); // Using 2000 ms (2 seconds) as a delay after interaction ends
-        }
-    };
-
-    // Mouse events
-    scrollable.addEventListener("mouseover", () => {
-        isInteracting = true;
-    });
-    scrollable.addEventListener("mouseout", () => {
-        isInteracting = false;
-        initiateScrollReset();
-    });
-
-    // Touch events
-    scrollable.addEventListener("touchstart", () => {
-        isInteracting = true;
-    });
-    scrollable.addEventListener("touchend", () => {
-        isInteracting = false;
-        initiateScrollReset();
-    });
-
-    // Scroll event for resetting scroll position, considering the interaction state
-    scrollable.addEventListener("scroll", () => {
-        if (!isInteracting) {
-            clearTimeout(scrollable.timeout);
-            scrollable.timeout = setTimeout(() => {
-                handleScrollPositionReset().catch(console.error);
-            }, 50); // Immediate scroll position reset if not currently interacting
-        }
-    });
-}
-
-
-
-
-
-// Add a scroll event listener to a scrollable element to reset its scroll position after scrolling stops.
-// function setupScrollEvent(scrollable) {
-//   let isHovering = false; // Flag to track hover state
-
-//     // Add mouseover listener to set isHovering to true
-//     scrollable.addEventListener("mouseover", () => {
-//         isHovering = true;
-//       clearTimeout(scrollable.timeout);
-//     });
-
-//     // Add mouseout listener to set isHovering to false
-//     scrollable.addEventListener("mouseout", () => {
-//         isHovering = false;
-//     });
-
-//     // Add mouseout listener to delay scroll reset by 2 seconds after mouse leaves
-//     scrollable.addEventListener("mouseout", () => {
-//         scrollable.timeout = setTimeout(() => {
-//             handleScrollPositionReset().catch(console.error);
-//         }, 1420); // Delay reset by 2 seconds
-//     });
-
-//     // Regular scroll event to reset scroll position, will be preempted if mouse is over
-//     // Modify the scroll event listener to check isHovering flag before resetting scroll position
-//     scrollable.addEventListener("scroll", () => {
-//         if (!isHovering) { // Only reset scroll position if not hovering
-//             clearTimeout(scrollable.timeout);
-//             scrollable.timeout = setTimeout(handleScrollPositionReset, 50);
-//         }
-//     });
-// }
-
-// Add a wheel event listener to prevent default scrolling behavior and apply custom scrolling speed.
-function setupWheelEvent(scrollable) {
-    scrollable.addEventListener("wheel", (event) => {
-        event.preventDefault(); // Prevent default scrolling.
-        let speed = event.deltaY / 11; // Custom scroll speed.
-        scrollable.scrollTop += speed; // Apply custom scroll.
-    });
-}
-
-// Async function to reset the scroll position of all elements with the class 'scrollable'.
-async function handleScrollPositionReset() {
-    const targetItemId = "current"; // Target item identifier.
-    document.querySelectorAll(".scrollable").forEach(scrollable => {
-        const targetItem = scrollable.querySelector(`#${targetItemId}`);
-        if (targetItem) {
-            // Smooth scroll to the target item.
-            targetItem.scrollIntoView({ behavior: "smooth", block: "center", inline: "nearest" });
-        }
-    });
-}
-
-function throttle(func, limit) {
-    let inThrottle;
-    return function () {
-        const args = arguments;
-        const context = this;
-        if (!inThrottle) {
-            func.apply(context, args);
-            inThrottle = true;
-            setTimeout(() => inThrottle = false, limit);
-        }
-    };
-}
-
-function adjustHeaderOnScroll() {
-    window.addEventListener('scroll', throttle(async () => {
-        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-        const header = document.querySelector('header');
-        const tocListWrappers = document.querySelectorAll(".toc-list-wrapper");
-
-        if (scrollTop > 69) {
-            header.classList.add('header-fixed');
-            tocListWrappers.forEach(wrapper => {
-                wrapper.style.visibility = 'visible';
-                wrapper.style.opacity = '100%';
-            });
-        } else {
-            header.classList.remove('header-fixed');
-            tocListWrappers.forEach(wrapper => {
-                wrapper.style.visibility = 'hidden';
-                wrapper.style.opacity = '0';
-            });
-        }
-
-        await handleScrollPositionReset();
-    }, 1));
 }
 
 // Function to get the position and ID of elements with a specified class name.
@@ -198,66 +192,18 @@ function getPositionAndId(className) {
     return elementsInfo;
 }
 
-// Generate HTML content for the TOC based on elements with a specific class name.
-function generateTOCHTML(elementId) {
-    const elementsInfo = getPositionAndId(elementId);
-    const tocContainer = document.getElementById('toc');
-    if (!elementsInfo || !tocContainer) return;
-
-    // Create and append link elements for each TOC item.
-    elementsInfo.forEach(info => {
-        const tocLink = document.createElement('a');
-        tocLink.className = 'toc-item-wrapper';
-        tocLink.href = `#${info.id}`;
-        tocLink.style.top = `${info.percentage}%`; // Position based on document height percentage.
-        tocLink.innerHTML = `<div class='toc-item' title='${info.id}'>${info.id}</div><div class='toc-item-marker'></div>`;
-        tocContainer.appendChild(tocLink);
-    });
-}
-
-// Setup click event handlers for anchor links to smoothly scroll to the target section.
-function setupAnchorClickHandlers() {
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            e.preventDefault(); // Prevent default anchor click behavior.
-            const targetId = this.getAttribute('href').substring(1); // Extract target ID.
-            const targetElement = document.getElementById(targetId); // Find target element.
-            if (targetElement) {
-                // Smooth scroll to the target element.
-                targetElement.scrollIntoView({ behavior: "smooth", block: "center", inline: "nearest" });
-            }
-        });
-    });
-}
-
-// Add event listeners for hover and mouse leave on the TOC element.
-document.getElementById('toc')?.addEventListener('mouseenter', handleTocHover);
-document.getElementById('toc')?.addEventListener('mouseleave', handleTocMouseLeave);
-
-// Handle hover over TOC element by making all child TOC items fully opaque.
-function handleTocHover(event) {
-    event.currentTarget.querySelectorAll('.toc-item').forEach(child => {
-        child.style.opacity = '100%';
-    });
-}
-
-// Handle mouse leaving TOC element by reducing the opacity of all child TOC items.
-function handleTocMouseLeave(event) {
-    event.currentTarget.querySelectorAll('.toc-item').forEach(child => {
-        child.style.opacity = '0%';
-    });
-}
-
-
-//Closing dialog
 document.addEventListener('DOMContentLoaded', function() {
-    var dialogs = document.querySelectorAll('dialog');
+    const targetElement = document.querySelector('.toc-list-wrapper'); 
 
-    dialogs.forEach(function(dialog) {
-        dialog.addEventListener('click', function(event) {
-            if (event.target === dialog) { // Checks if the click was on the dialog element itself
-                dialog.close(); // Closes the dialog
-            }
-        });
-    });
+    function toggleVisibilityOnScroll() {
+        if (window.scrollY > 100) {
+            targetElement.classList.add('visible');
+            targetElement.classList.remove('hidden');
+        } else {
+            targetElement.classList.add('hidden');
+            targetElement.classList.remove('visible');
+        }
+    }
+
+    window.addEventListener('scroll', toggleVisibilityOnScroll);
 });
