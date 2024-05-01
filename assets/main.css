@@ -752,7 +752,7 @@ lottie-player {
     }
 
     a.home{
-        writing-mode: tb;
+        writing-mode: vertical-lr;
     }
     .card{
         flex-direction: column;
