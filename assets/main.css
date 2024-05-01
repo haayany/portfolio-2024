@@ -423,6 +423,7 @@ div.canvas-content {
     flex-direction: column;
     justify-content: center;
     padding-bottom: 40px;
+    padding-top: 40px;
 }
 
 div.canvas-content.intermission {
@@ -730,6 +731,10 @@ lottie-player {
     height: 600px;
 }
 
+.main-title{
+    margin:0; padding-left:48px; font-size: 5rem;
+}
+
 @media only screen and (max-width: 768px) {
     h1 {
         font-size: 2rem;
@@ -749,6 +754,19 @@ lottie-player {
 
     body{
         grid-template-columns: 40px 90% 1fr;
+    }
+
+    .main-title{
+        font-size: 3rem;
+        padding-left: 16px;
+    }
+
+    .track-1 .slide-wrap {
+        font-size: 80px;
+    }
+    
+    .track-2 .slide-wrap {
+        font-size: 40px;
     }
 
     a.home{
