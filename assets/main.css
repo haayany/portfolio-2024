@@ -333,6 +333,7 @@ header .button:only-child {
     border-right: 4px solid var(--accent);
     z-index: 10;
     background-color: var(--bg);
+    opacity: 0.3;
 }
 
 .button.toc-item::before {

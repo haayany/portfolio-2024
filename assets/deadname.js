@@ -170,7 +170,7 @@ function generateTOCHTML(elementId) {
         tocLink.className = 'toc-item-wrapper';
         tocLink.href = `#${info.id}`;
         tocLink.style.top = `${info.percentage}%`; // Position based on document height percentage.
-        tocLink.innerHTML = `<div class='button toc-item' title='${info.id}'>${info.id}</div>`;
+        tocLink.innerHTML = `<div class='button toc-item hide' title='${info.id}'>${info.id}</div>`;
         tocContainer.appendChild(tocLink);
     });
 }
@@ -207,3 +207,22 @@ document.addEventListener('DOMContentLoaded', function() {
 
     window.addEventListener('scroll', toggleVisibilityOnScroll);
 });
+
+
+// Add event listeners for hover and mouse leave on the TOC element.
+document.getElementById('toc')?.addEventListener('mouseenter', handleTocHover);
+document.getElementById('toc')?.addEventListener('mouseleave', handleTocMouseLeave);
+
+// Handle hover over TOC element by making all child TOC items fully opaque.
+function handleTocHover(event) {
+    event.currentTarget.querySelectorAll('.toc-item').forEach(child => {
+        child.style.opacity = '100%';
+    });
+}
+
+// Handle mouse leaving TOC element by reducing the opacity of all child TOC items.
+function handleTocMouseLeave(event) {
+    event.currentTarget.querySelectorAll('.toc-item').forEach(child => {
+        child.style.opacity = '30%';
+    });
+}
