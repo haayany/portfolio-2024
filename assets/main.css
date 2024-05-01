@@ -267,7 +267,7 @@ contents.image figure{
     width: 48%;
 }
 
-figure img{
+figure img, figure video{
     object-fit: cover;
     width: 100%;
 }
