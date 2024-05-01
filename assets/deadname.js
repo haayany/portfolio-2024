@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     const canvases = document.querySelectorAll('.dot-canvas');
 
     canvases.forEach(canvas => {
@@ -25,14 +25,14 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         function populateDots() {
-    ctx.clearRect(0, 0, width, height);
-    // Start from 10 pixels down from the top and stop before 10 pixels from the bottom
-    for (let y = 20; y < height; y += spacing) {
-        for (let x = 0; x < width; x += spacing) {
-            drawDot(x, y, baseSize, 'rgb(196, 187, 165)');
+            ctx.clearRect(0, 0, width, height);
+            // Start from 10 pixels down from the top and stop before 10 pixels from the bottom
+            for (let y = 20; y < height; y += spacing) {
+                for (let x = 0; x < width; x += spacing) {
+                    drawDot(x, y, baseSize, 'rgb(196, 187, 165)');
+                }
+            }
         }
-    }
-}
 
         function interpolateColor(color1, color2, ratio) {
             const r = Math.round(color1.r + (color2.r - color1.r) * ratio);
@@ -42,42 +42,46 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         function adjustDotSizes(x, y) {
-    ctx.clearRect(0, 0, width, height);
-    // Adjust loop for padding as well
-    for (let py = 20; py < height; py += spacing) {
-        for (let px = 0; px < width; px += spacing) {
-            const dx = x - px;
-            const dy = y - py;
-            const distance = Math.sqrt(dx * dx + dy * dy);
-            const size = baseSize * Math.max(1, 3 - distance / 100);
-            let ratio = Math.min(distance / colorThreshold, 1);
-            const color = interpolateColor(baseColor, hoverColor, 1 - ratio);
+            ctx.clearRect(0, 0, width, height);
+            // Adjust loop for padding as well
+            for (let py = 20; py < height; py += spacing) {
+                for (let px = 0; px < width; px += spacing) {
+                    const dx = x - px;
+                    const dy = y - py;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+                    const size = baseSize * Math.max(1, 3 - distance / 100);
+                    let ratio = Math.min(distance / colorThreshold, 1);
+                    const color = interpolateColor(baseColor, hoverColor, 1 - ratio);
 
-            drawDot(px, py, size, color);
+                    drawDot(px, py, size, color);
+                }
+            }
         }
-    }
-}
 
         populateDots();
 
         let throttled = false;
-        canvas.addEventListener('mousemove', function(e) {
-    const rect = canvas.getBoundingClientRect(); // Gets the bounds of the canvas
-    const scaleX = canvas.width / rect.width;    // Scale factor between actual canvas size and displayed size
-    const scaleY = canvas.height / rect.height;  // Same for height
+        canvas.addEventListener('mousemove', function (e) {
+            const rect = canvas.getBoundingClientRect(); // Gets the bounds of the canvas
+            const scaleX = canvas.width / rect.width;    // Scale factor between actual canvas size and displayed size
+            const scaleY = canvas.height / rect.height;  // Same for height
 
-    // Adjusting the mouse position to be relative to the canvas
-    const canvasX = (e.clientX - rect.left) * scaleX;
-    const canvasY = (e.clientY - rect.top) * scaleY;
+            // Adjusting the mouse position to be relative to the canvas
+            const canvasX = (e.clientX - rect.left) * scaleX;
+            const canvasY = (e.clientY - rect.top) * scaleY;
 
-    if (!throttled) {
-        adjustDotSizes(canvasX, canvasY);
-        throttled = true;
-        setTimeout(() => { throttled = false; }, 10);
-    }
-});
+            if (!throttled) {
+                adjustDotSizes(canvasX, canvasY);
+                throttled = true;
+                setTimeout(() => { throttled = false; }, 10);
+            }
+        });
 
-        window.addEventListener('resize', function() {
+        canvas.addEventListener('mouseleave', function () {
+            populateDots(); // Redraw the canvas with default dots when the mouse leaves the canvas
+        });
+
+        window.addEventListener('resize', function () {
             width = canvas.offsetWidth;
             height = canvas.offsetHeight;
             canvas.width = width;
@@ -87,7 +91,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     const urlbutton = document.querySelector('.url');
     const display = document.querySelector('.display');
     const list = document.querySelector('.dropdown-list');
@@ -95,37 +99,37 @@ document.addEventListener('DOMContentLoaded', function() {
     const cursor = document.createElement('span');
     cursor.className = 'cursor';
     cursor.textContent = '';  // This will be the blinking cursor
-  let originalText = display.textContent;  // Store the initial text
+    let originalText = display.textContent;  // Store the initial text
 
     // Toggle list display on click
-    urlbutton.addEventListener('click', function() {
+    urlbutton.addEventListener('click', function () {
         list.hidden = !list.hidden;
     });
 
     // Hide list when clicking outside
-    document.addEventListener('click', function(event) {
+    document.addEventListener('click', function (event) {
         if (!urlbutton.contains(event.target) && !list.contains(event.target)) {
             list.hidden = true;
             display.textContent = originalText;  // Reset to original text
             display.appendChild(cursor);  // Ensure cursor is visible
         }
-    }); 
+    });
 
     // Hover effect and temporary text display
     const listItems = document.querySelectorAll('.dropdown-list li');
     listItems.forEach(item => {
-        item.addEventListener('mouseenter', function() {
+        item.addEventListener('mouseenter', function () {
             if (typingInterval) clearInterval(typingInterval);
             startTypingEffect(display, item.textContent);
         });
-      item.addEventListener('mouseleave', function() {
+        item.addEventListener('mouseleave', function () {
 
             display.textContent = originalText;  // Reset to original text when mouse leaves
 
             display.appendChild(cursor);
 
         });
-        item.addEventListener('click', function() {
+        item.addEventListener('click', function () {
             originalText = item.textContent;  // Update original text upon selection
             display.textContent = item.textContent;
             display.appendChild(cursor);  // Ensure cursor is visible after selection
@@ -192,8 +196,8 @@ function getPositionAndId(className) {
     return elementsInfo;
 }
 
-document.addEventListener('DOMContentLoaded', function() {
-    const targetElement = document.querySelector('.toc-list-wrapper'); 
+document.addEventListener('DOMContentLoaded', function () {
+    const targetElement = document.querySelector('.toc-list-wrapper');
 
     function toggleVisibilityOnScroll() {
         if (window.scrollY > 100) {
