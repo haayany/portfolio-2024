@@ -190,6 +190,7 @@ main .contact div {
     display: flex;
     flex-direction: column;
     padding: 20px 0;
+    gap: 10px;
 }
 
 
@@ -270,6 +271,8 @@ contents.image figure{
 figure img, figure video{
     object-fit: cover;
     width: 100%;
+    max-height: 900px;
+    max-width: 900px;
 }
 
 contents.image p{
@@ -733,6 +736,27 @@ lottie-player {
 
 .main-title{
     margin:0; padding-left:48px; font-size: 5rem;
+}
+
+.interstitial-wrapper{
+    bottom: -78px;
+}
+
+.contact-dots{
+    width: 800px !important;  
+}
+
+@media only screen and (max-width : 1366px){
+    .interstitial-wrapper{
+        bottom: -58px;
+    }
+    .contact-dots{
+        width: 300px;
+    }
+
+    main .contact{
+        width: calc(100% - 300px);
+    }
 }
 
 @media only screen and (max-width: 768px) {
