@@ -268,6 +268,15 @@ contents.image figure{
     width: 48%;
 }
 
+contents.image.full figure{
+    width: 100%;
+    margin: 0;
+}
+
+contents.image.full figure img{
+    max-width: 100%;
+}
+
 figure img, figure video{
     object-fit: cover;
     width: 100%;
