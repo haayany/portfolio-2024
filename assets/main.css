@@ -6,7 +6,7 @@
     --mono-font: Consolas, Menlo, Monaco, "Andale Mono", "Ubuntu Mono", monospace;
     --bg: #ffffff;
     --text: #2D2D2D;
-    --text-light: #846D6D;
+    --text-light: #d7d7d7;
     --accent: #F95C3A;
     --accent-light: #fff0ec;
     --accent-hover: #D13E1E;
@@ -617,7 +617,7 @@ badge {
     border-radius: 12px;
     padding: 4px 12px;
     border: 0.5px solid var(--text-light);
-    color: var(--text-light);
+    color: var(--text);
     width: fit-content;
     transition: all 0.3s ease-out;
     -webkit-transition: all 0.3s ease-out;
