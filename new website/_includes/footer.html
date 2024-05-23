@@ -1,0 +1,53 @@
+<!-- Footer -->
+<footer>
+  <div class="container">
+    <hr class="mb-5">
+    <div class="row g-5">
+      <div class="col-md-7 p-3">
+        <div class="container" style="display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        height: 100%;">
+          <div class="row mb-5">
+            <div class="col">
+              <h1>Dani.is </h1>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <a href="#" class="link btn">
+                <i class="far fa-envelope"></i>
+                danijeon.ux@gmail.com
+              </a>
+              <a href="#" class="link btn">
+                <i class="fab fa-linkedin-in"></i>
+                linkedin.com/danijeon
+              </a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <div class="col-md-5 p-3">
+
+        <div class="container">
+          <div class="row">
+            <div class="col">
+              <h3 class="mb-5">Works</h3>
+            </div>
+          </div>
+          <div class="row row-cols-md-2">
+            {% for post in site.posts %}
+            <div class="col p-2">
+              <a class="" href="{{ post.url | prepend: site.baseurl | replace: '//', '/' }}">
+                {{ post.title }}
+              </a>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</footer>
