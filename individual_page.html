@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dani.is......</title>
+
+    <!-- favicon -->
+    <link rel="icon" href="assets/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png">
+
+    <!-- Google fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+        rel="stylesheet">
+    <!-- css -->
+    <link rel="stylesheet" href="/assets/main.css">
+</head>
+
+<body>
+    <logo>
+        <a href="/" class="button home">
+            Dani.is
+        </a>
+    </logo>
+    <header>
+        <left>
+            <!--     <a class="button" href="/">
+          <span>/</span>ux.designer
+        </a> -->
+            <div class="dropdown">
+                <a class="button url">
+                    <span>/</span><span class="display">ux.designer<span class="cursor"></span></span>
+                </a>
+                <ul class="dropdown-list" hidden>
+                    <li data-value="Option 1"><a class="button">showing.works</a></li>
+                    <li data-value="Option 2"><a class="button">introducing.dani</a></li>
+                    <li data-value="Option 3"><a class="button">waiting.your.contact</a></li>
+                </ul>
+            </div>
+            <div>
+            </div>
+        </left>
+        <right>
+            <a class="button" href="/introducing.dani">
+                <span>/</span>introducing.dani
+            </a>
+        </right>
+    </header>
+    <hero class="hero" style="background-image: url('/assets/Design-System/main.png');">
+    </hero>
+    <div class="left">
+    </div>
+    <main>
+        <div class="content">
+            <div class="title">
+                <h1>Design System Development</h1>
+            </div>
+            <div class="tag-group">
+                <div class="tag">
+                    <label>when</label>
+                    <h4>Sep 2022 - Mar 2024</h4>
+                </div>
+                <div class="tag">
+                    <label>where</label>
+                    <h4>Cardinal Financial</h4>
+                </div>
+                <div class="tag">
+                    <label>Something</label>
+                    <h4>123</h4>
+                </div>
+            </div>
+            <h2 id="Overview" class="accent toc">Overview</h2>
+            <p>
+                The company had three different channels for conducting business. Retail, Consumer-direct, and wholesale. B2C, retail, and consumer-direct part of the company had multiple subsidiaries that required different branding. Similarly, wholesale customers wanted to apply their own branding to our provided services as well.
+            </p>
+            <p>
+                Another issue with their proprietary system was front-end development speed. There were no guidelines nor component library for repetitive items, even for a button. Every button on different pages was slightly different.
+            </p>
+        </div>
+        <div class="canvas-container">
+            <canvas class="dot-canvas"></canvas>
+        </div>
+    </main>
+    <hero class="image">
+        <img src="/assets/Design-System/token-naming.png">
+        <img src="/assets/Design-System/semantic-token.png">
+    </hero>
+    <main>
+        <div class="content">
+            <h2 id="Component & Semantic Tokens" class="accent toc">Component & Semantic Tokens</h2>
+            <p>
+                Figma didn’t have a native way to apply tokens properly but with limited library features. I was able to make a decent way to apply different themes with library swap feature, but it was still, too much to ask new designers who are not familiar with Figma.
+            </p>
+            <p>
+Thankfully, Figma introduced variable feature. And I was able to update all the components with it quickly.
+            </p>
+            <p>
+                While making and applying component tokens, I realized two things; In code, token naming convention is not consistent It’s a good time to apply Semantic Tokens
+            </p>
+            <p>
+                I grabbed front-end engineers and showed possible two naming conventions, and suggestions for applying semantic tokens for actions. Thanks to the great front-end engineering team, we connected Figma tokens to the code. Figma token update means code is updated automatically.
+            </p>
+        </div>
+        <div class="canvas-container">
+            <canvas class="dot-canvas"></canvas>
+        </div>
+    </main>
+    <hero class="image">
+        <video muted autoplay loop controls style="max-height: 600px;">
+            <source src="/assets/Design-System/demo-slot.webm" type="video/webm">
+        </video>
+        <video muted autoplay loop controls style="max-height: 600px;">
+            <source src="/assets/Design-System/demo-table.webm" type="video/webm">
+        </video>
+    </hero>
+    <main>
+        <div class="content">
+            <h2 id="Product for Our Team" class="accent toc">Product for Our Team</h2>
+            <p>I believe making a design system is making a product for designers and software engineers. So I did everything I could to make it convenient for them. Slot and table component is some of the my efforts to make that possible.</p>
+            <p>With Slot component, designers could update the contents inside of a component without disconnecting its library. (slot component concept is originally from Atlassian. See Atlassian Figma File)</p>
+            <p>Working on a financial product meant a lot of tables. (or a similar structure) Designers always needed to spend lots of time moving around table borders, cells, rows, and columns. After the update, designers never needed to work more than 5 minutes on any kind of updates for tables.</p>
+            <h2 id="Outcome" class="accent toc">Outcome</h2>
+            <h4 style="margin:0;">Products Supported by the Design System</h4>
+            <div class="tag-group">
+                <div class="tag">
+                    <label>Internal & In-Service</label>
+                    <h4>2</h4>
+                </div>
+                <div class="tag">
+                    <label>Public & In-Service</label>
+                    <h4>1</h4>
+                </div>
+                <div class="tag">
+                    <label>In-Development</label>
+                    <h4>2</h4>
+                </div>
+            </div>
+            <p>The design system helped us to kickstart and release two proprietary products within a month and two months. Three more products were designed with it.</p>
+        </div>
+        <div class="canvas-container">
+            <canvas class="dot-canvas"></canvas>
+        </div>
+    </main>
+    <hero class="image">
+        <img src="/assets/Design-System/token-with-variable.png">
+    </hero>
+    <main style="padding: 100px 0;"></main>
+    <div class="canvas-container">
+        <canvas class="dot-canvas"></canvas>
+        <div class="canvas-content"
+            style="height: 200px; flex-direction: row; justify-content: space-between; align-items: center; padding: 0 144px; z-index: 10;">
+            <div style="font-size: 24px; font-weight: 700; z-index: 10; background: var(--bg);">
+                want to know more about Dani?
+            </div>
+            <a class="button" href="/showing.works" style="height: max-content;
+        padding: 24px 12px;
+        pointer-events: auto;
+        border: 1px solid var(--text-light); z-index: 10;">
+                <span>/</span>waiting.your.contact
+            </a>
+        </div>
+    </div>
+    <main style="padding: 200px 0;"></main>
+    <footer class="left">
+
+    </footer>
+    <footer>
+    </footer>
+    <div class="toc-list-wrapper" id="toc"></div>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-E4DF5M1E9C"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-E4DF5M1E9C');
+    </script>
+
+</body>
+<!-- Fancy JS-->
+<script type="text/javascript" src="/assets/deadname.js"></script>
+
+</html>
